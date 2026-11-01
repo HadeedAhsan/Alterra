@@ -1,0 +1,40 @@
+.branch-svg {
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+  justify-self: center;
+}
+
+.branch-path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: branch-draw 1s ease-out forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.branch-cyan { stroke: var(--cyan); }
+.branch-violet { stroke: var(--violet); }
+.branch-fill-cyan { fill: var(--cyan); }
+.branch-fill-violet { fill: var(--violet); }
+
+.branch-node {
+  opacity: 0;
+  animation: branch-appear 0.4s ease-out forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes branch-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes branch-appear {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .branch-path { animation: none; stroke-dashoffset: 0; }
+  .branch-node { animation: none; opacity: 1; }
+}

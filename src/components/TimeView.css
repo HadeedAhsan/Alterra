@@ -1,0 +1,127 @@
+.time-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--void);
+  overflow: hidden;
+}
+
+.time-view svg {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.time-tone-fixed { --seg: var(--elevated); }
+.time-tone-sleep { --seg: var(--violet); }
+.time-tone-work { --seg: var(--cyan); }
+.time-tone-exercise { --seg: var(--success); }
+.time-tone-free { --seg: var(--text-muted); }
+.time-tone-over { --seg: var(--error); }
+
+.time-seg {
+  fill: var(--seg);
+  stroke: var(--void);
+  stroke-width: 2;
+}
+
+.time-free {
+  fill: none;
+  stroke: var(--seg);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.time-over {
+  fill: var(--error);
+  opacity: 0.08;
+}
+
+.time-limit {
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.time-limit-over {
+  stroke: var(--error);
+}
+
+.time-tick {
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.time-ghost {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  opacity: 0.8;
+}
+
+.time-gauge-track {
+  fill: var(--nebula);
+  stroke: var(--line);
+}
+
+.time-gauge-fill {
+  transition: width var(--transition), fill var(--transition);
+}
+
+.time-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.time-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.time-legend-value {
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
+.time-swatch {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: var(--seg);
+}
+
+.time-swatch.time-tone-free {
+  background: transparent;
+  border: 1.5px dashed var(--seg);
+}
+
+.time-caption {
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.time-label {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.time-label-strong {
+  fill: var(--text);
+}

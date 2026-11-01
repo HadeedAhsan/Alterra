@@ -1,0 +1,57 @@
+.city-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--void);
+  overflow: hidden;
+}
+
+.city-view svg {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.city-caption {
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.city-building {
+  fill: var(--elevated);
+}
+
+.city-road {
+  fill: var(--nebula);
+  stroke-width: 2;
+  transition: stroke var(--transition);
+}
+
+.city-car {
+  fill: var(--cyan);
+}
+
+.city-transit-line {
+  stroke: var(--violet);
+  stroke-opacity: 0.4;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.city-bus {
+  fill: var(--violet);
+}
+
+.city-ghost {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  opacity: 0.8;
+}

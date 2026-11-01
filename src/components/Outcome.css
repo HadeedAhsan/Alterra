@@ -1,0 +1,74 @@
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.outcome-metrics {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.metric-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.metric-unit {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.metric-status {
+  margin-left: auto;
+  padding: 2px var(--space-2);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-success { color: var(--success); }
+.status-caution { color: var(--caution); }
+.status-error { color: var(--error); }
+
+.outcome-summary {
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+.outcome-assumptions {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.outcome-assumptions summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--violet);
+}
+
+.outcome-assumptions p {
+  margin: 0;
+}

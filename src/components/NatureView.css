@@ -1,0 +1,66 @@
+.nature-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--void);
+  overflow: hidden;
+}
+
+.nature-view svg {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.nature-label {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.nature-ground {
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.nature-plant {
+  transition: fill var(--transition);
+}
+
+.nature-stump {
+  fill: var(--elevated);
+}
+
+.nature-lane {
+  fill: var(--nebula);
+  stroke: var(--line);
+  stroke-width: 2;
+  transition: stroke var(--transition);
+}
+
+.nature-herbivore {
+  fill: var(--cyan);
+}
+
+.nature-predator {
+  fill: var(--violet);
+}
+
+.nature-ghost {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  opacity: 0.8;
+}
+
+.nature-caption {
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}

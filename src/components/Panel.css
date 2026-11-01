@@ -1,0 +1,44 @@
+.panel {
+  background: rgba(21, 29, 51, 0.92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.panel-title {
+  font-size: 1rem;
+}
+
+.panel-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panel-toggle:hover {
+  background: var(--elevated);
+}
+
+.panel-chevron {
+  color: var(--text-muted);
+  transition: transform var(--transition);
+}
+
+.panel-chevron.open {
+  transform: rotate(180deg);
+}
+
+.panel-body {
+  padding: var(--space-2) var(--space-6) var(--space-6);
+}
