@@ -18,7 +18,7 @@ export default function Slider({
     <div className={`slider ${className}`.trim()}>
       <div className="slider-head">
         <label htmlFor={id} className="slider-label">{label}</label>
-        <output htmlFor={id} className="slider-value">
+          <output htmlFor={id} aria-live="off" className="slider-value">
           {value}
           {unit && <span className="slider-unit"> {unit}</span>}
         </output>

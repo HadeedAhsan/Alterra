@@ -63,9 +63,13 @@ export default function Saved() {
 
   function handleDelete(experiment) {
     if (!window.confirm(`Delete "${experiment.name}"? This cannot be undone.`)) return
-    deleteExperiment(experiment.id)
-    setList(loadExperiments())
+    setError('')
     setNotice('')
+    if (!deleteExperiment(experiment.id)) {
+      setError('Could not delete. Browser storage may be blocked.')
+      return
+    }
+    setList(loadExperiments())
     headingRef.current?.focus()
   }
 
@@ -138,6 +142,7 @@ export default function Saved() {
                     <Button
                       to={`/lab/${experiment.worldId}`}
                       state={{ values: experiment.values }}
+                      aria-label={`Open ${experiment.name}`}
                     >
                       Open
                     </Button>

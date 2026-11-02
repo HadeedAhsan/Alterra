@@ -42,7 +42,7 @@
   background: linear-gradient(
     to right,
     var(--cyan) var(--fill),
-    var(--line) var(--fill)
+    var(--line-strong) var(--fill)
   );
 }
 
@@ -52,7 +52,7 @@
   background: linear-gradient(
     to right,
     var(--cyan) var(--fill),
-    var(--line) var(--fill)
+    var(--line-strong) var(--fill)
   );
 }
 

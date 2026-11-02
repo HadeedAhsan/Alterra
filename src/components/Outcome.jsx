@@ -20,7 +20,7 @@ export default function Outcome({ metrics, summary, assumptions }) {
         ))}
       </dl>
 
-      <p className="outcome-summary">{summary}</p>
+      <p className="outcome-summary" aria-live="polite">{summary}</p>
 
       <details className="outcome-assumptions">
         <summary>Assumptions and limits</summary>

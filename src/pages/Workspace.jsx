@@ -90,8 +90,14 @@ function Lab({ world, sim, View }) {
       </div>
 
       <Toolbar
-        onReset={() => setValues(sim.defaults)}
-        onCompare={() => setBaseline({ values, result })}
+        onReset={() => {
+          setValues(sim.defaults)
+          setMessage('Variables reset to defaults.')
+        }}
+        onCompare={() => {
+          setBaseline({ values, result })
+          setMessage('Baseline pinned. Change a variable to see the difference.')
+        }}
         onSave={() => {
           setMessage('')
           setSaving(true)
@@ -129,6 +135,7 @@ function Lab({ world, sim, View }) {
               variables={sim.variables}
               onClear={() => {
                 setBaseline(null)
+                setMessage('Baseline cleared.')
                 focusButton('compare-baseline')
               }}
             />

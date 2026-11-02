@@ -106,7 +106,7 @@ Export format:
 
 ## Deployment
 
-Alterra is a static site. Run `npm run build` and deploy the `dist` folder to Vercel, GitHub Pages, or any static host. Because routing happens in the browser, the host needs a fallback that serves `index.html` for unknown paths. Vercel handles this for Vite projects automatically. On GitHub Pages you will need a 404 fallback or a hash router.
+Alterra is a static site. Run `npm run build` and deploy the `dist` folder to Vercel, GitHub Pages, or any static host. Because routing happens in the browser, the host needs a fallback that serves `index.html` for unknown paths. This repo includes a vercel.json with that rewrite. On GitHub Pages you will need a 404 fallback or a hash router.
 
 ## Roadmap
 
