@@ -20,7 +20,7 @@ Every result is an illustrative model, not a prediction. Each lab lists its assu
 - SVG visualization for each lab
 - Baseline comparison: pin a scenario, change variables, and see ghost outlines plus a table of what changed
 - Saved experiments: save, reopen, rename, and delete, stored in your browser with localStorage
-- JSON export of all saved experiments
+- JSON export and import. Import only accepts Alterra exports and checks every value against the lab's slider range.
 - Reset to defaults
 - Dark only design with a cosmic look, responsive from phone to desktop
 - Accessibility: keyboard navigation, visible focus states, skip link, labelled sliders and visuals, touch friendly controls, and reduced motion support
@@ -103,16 +103,17 @@ Export format:
   "experiments": []
 }
 ```
+Import skips any entry with an unknown lab, a missing variable, or a value outside the slider range, and reports how many it skipped. Experiments already saved are detected by id and not duplicated.
 
 ## Deployment
 
 Alterra is a static site. Run `npm run build` and deploy the `dist` folder to Vercel, GitHub Pages, or any static host. Because routing happens in the browser, the host needs a fallback that serves `index.html` for unknown paths. This repo includes a vercel.json with that rewrite. On GitHub Pages you will need a 404 fallback or a hash router.
 
+**Live demo: https://alterra-sepia.vercel.app/**
+
 ## Roadmap
 
-- JSON import with validation against each lab's variable ranges
-- Final accessibility pass: contrast, screen reader testing
-- Production deployment
+- Share image for link previews
 
 ## Disclaimer
 

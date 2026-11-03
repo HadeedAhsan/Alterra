@@ -58,3 +58,30 @@ export function renameExperiment(id, name) {
 export function deleteExperiment(id) {
   return persist(loadExperiments().filter((e) => e.id !== id))
 }
+
+export function importExperiments(items) {
+  const existing = loadExperiments()
+  const seen = new Set(existing.map((e) => e.id))
+  const fresh = []
+  let duplicates = 0
+
+  for (const item of items) {
+    if (item.id && seen.has(item.id)) {
+      duplicates += 1
+      continue
+    }
+    const experiment = {
+      id: item.id ?? makeId(),
+      name: item.name,
+      worldId: item.worldId,
+      values: item.values,
+      savedAt: item.savedAt ?? new Date().toISOString(),
+    }
+    seen.add(experiment.id)
+    fresh.push(experiment)
+  }
+
+  if (fresh.length === 0) return { ok: true, added: 0, duplicates }
+  const ok = persist([...fresh, ...existing])
+  return { ok, added: ok ? fresh.length : 0, duplicates }
+}

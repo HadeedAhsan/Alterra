@@ -1,17 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
-import { Download, Pencil, Trash2 } from 'lucide-react'
+import { Download, Pencil, Trash2, Upload } from 'lucide-react'
 import { worlds } from '../data/worlds'
 import {
   loadExperiments,
   deleteExperiment,
   renameExperiment,
+  importExperiments,
 } from '../storage/experiments'
+import { parseImport, IMPORT_MAX_BYTES } from '../storage/importData'
 
 import { buildExport, downloadJson } from '../storage/exportData'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import './Saved.css'
 
+function describeImport(added, duplicates, skipped) {
+  const parts = [`Imported ${added} experiment${added === 1 ? '' : 's'}.`]
+  if (duplicates) parts.push(`${duplicates} already saved.`)
+  if (skipped) parts.push(`${skipped} skipped because they were invalid.`)
+  return parts.join(' ')
+}
 export default function Saved() {
   const [list, setList] = useState(loadExperiments)
   const [editingId, setEditingId] = useState(null)
@@ -20,6 +28,7 @@ export default function Saved() {
   const [notice, setNotice] = useState('')
   const headingRef = useRef(null)
   const returnFocusTo = useRef(null)
+  const fileInputRef = useRef(null)
 
   // After editing ends, put focus back on that card's Rename button.
   useEffect(() => {
@@ -72,19 +81,62 @@ export default function Saved() {
     setList(loadExperiments())
     headingRef.current?.focus()
   }
+    async function handleImport(event) {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    setError('')
+    setNotice('')
+    if (file.size > IMPORT_MAX_BYTES) {
+      setError('That file is too large to import.')
+      return
+    }
+    try {
+      const parsed = parseImport(await file.text())
+      if (parsed.error) {
+        setError(parsed.error)
+        return
+      }
+      const { ok, added, duplicates } = importExperiments(parsed.experiments)
+      if (!ok) {
+        setError('Could not import. Browser storage may be full or blocked.')
+        return
+      }
+      setList(loadExperiments())
+      setNotice(describeImport(added, duplicates, parsed.skipped))
+    } catch {
+      setError('Could not read that file.')
+    }
+  }
 
   return (
     <section className="saved">
       <div className="saved-header">
   <h1 ref={headingRef} tabIndex={-1}>Saved experiments</h1>
-  <Button
-    variant="secondary"
-    icon={Download}
-    onClick={handleExport}
-    disabled={list.length === 0}
-  >
-    Export JSON
-  </Button>
+          <div className="saved-header-actions">
+          <Button
+            variant="secondary"
+            icon={Upload}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            Import JSON
+          </Button>
+          <Button
+            variant="secondary"
+            icon={Download}
+            onClick={handleExport}
+            disabled={list.length === 0}
+          >
+            Export JSON
+          </Button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/json,.json"
+            hidden
+            onChange={handleImport}
+          />
+        </div>
 </div>
 <p className="saved-notice" role="status">{notice}</p>
 
