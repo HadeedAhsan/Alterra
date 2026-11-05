@@ -2,6 +2,8 @@
 
 **Change one thing. Discover another world.**
 
+**Live demo: https://alterra-sepia.vercel.app/**
+
 Alterra is an interactive possibility lab. Move a slider, watch a simplified world respond, and compare it with the one you started from. Everything runs in the browser. There is no backend and no database.
 
 Every result is an illustrative model, not a prediction. Each lab lists its assumptions and limits next to the numbers.
@@ -108,12 +110,6 @@ Import skips any entry with an unknown lab, a missing variable, or a value outsi
 ## Deployment
 
 Alterra is a static site. Run `npm run build` and deploy the `dist` folder to Vercel, GitHub Pages, or any static host. Because routing happens in the browser, the host needs a fallback that serves `index.html` for unknown paths. This repo includes a vercel.json with that rewrite. On GitHub Pages you will need a 404 fallback or a hash router.
-
-**Live demo: https://alterra-sepia.vercel.app/**
-
-## Roadmap
-
-- Share image for link previews
 
 ## Disclaimer
 

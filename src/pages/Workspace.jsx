@@ -82,6 +82,10 @@ function Lab({ world, sim, View }) {
     <section className="workspace" aria-label={world.name}>
       <div className="stage">
         <h1 className="stage-title">{world.name}</h1>
+        <p className="stage-hint">
+          {world.hint}
+          {!baseline && ' Press Compare to pin this setup, then change a variable to see the difference.'}
+        </p>
         <View
           values={values}
           result={result}

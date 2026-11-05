@@ -16,6 +16,13 @@
   font-size: 1.25rem;
 }
 
+.stage-hint {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
 .stage-placeholder {
   flex: 1;
   display: grid;
