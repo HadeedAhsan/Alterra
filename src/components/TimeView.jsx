@@ -76,22 +76,36 @@ export default function TimeView({ values, result, baselineValues }) {
   return (
     <figure className="time-view">
       <svg viewBox="0 0 800 240" role="img" aria-label={label}>
+                <defs>
+          <pattern
+            id="time-hatch"
+            width="10"
+            height="10"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <line x1="0" y1="0" x2="0" y2="10" stroke="var(--error)" strokeWidth="3" />
+          </pattern>
+        </defs>
         <rect
-          className="time-over"
+          className={overbooked ? 'time-over time-over-active' : 'time-over'}
+          fill="url(#time-hatch)"
           x={limitX}
           y={frameTop}
           width={LEFT + WIDTH - limitX}
           height={frameBottom - frameTop}
         />
-
-        {segments.map((s) => (
+       {segments.map((s) => (
           <rect
             key={s.id}
             className={`time-seg time-tone-${s.id}`}
-            x={xAt(s.start)}
+            x="0"
             y={BAR_Y}
-            width={s.hours * PER_HOUR}
+            width="1"
             height={BAR_H}
+            style={{
+              transform: `translateX(${xAt(s.start)}px) scaleX(${s.hours * PER_HOUR})`,
+            }}
           />
         ))}
 
@@ -160,13 +174,16 @@ export default function TimeView({ values, result, baselineValues }) {
           rx="8"
         />
         <rect
-          className="time-gauge-fill"
+          className={`time-gauge-fill time-gauge-${energy.status}`}
           x={LEFT}
           y={GAUGE_Y}
           width={(energy.value / 100) * WIDTH}
           height={GAUGE_H}
           rx="8"
-          style={{ fill: STATUS_COLOR[energy.status] }}
+          style={{
+            fill: STATUS_COLOR[energy.status],
+            color: STATUS_COLOR[energy.status],
+          }}
         />
       </svg>
 

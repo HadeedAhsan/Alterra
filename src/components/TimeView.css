@@ -27,6 +27,8 @@
   fill: var(--seg);
   stroke: var(--void);
   stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  transition: transform 240ms ease;
 }
 
 .time-free {
@@ -36,9 +38,14 @@
   stroke-dasharray: 4 4;
 }
 
+
 .time-over {
-  fill: var(--error);
-  opacity: 0.08;
+  opacity: 0.16;
+  transition: opacity var(--transition);
+}
+
+.time-over-active {
+  animation: time-pulse 1.6s ease-in-out infinite;
 }
 
 .time-limit {
@@ -70,7 +77,25 @@
 }
 
 .time-gauge-fill {
-  transition: width var(--transition), fill var(--transition);
+  transition: fill var(--transition);
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.time-gauge-error {
+  animation: time-low 1.8s ease-in-out infinite;
+}
+
+@keyframes time-pulse {
+  50% { opacity: 0.34; }
+}
+
+@keyframes time-low {
+  50% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-over-active,
+  .time-gauge-error { animation: none; }
 }
 
 .time-legend {

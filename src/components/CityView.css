@@ -55,3 +55,36 @@
   stroke-dasharray: 3 3;
   opacity: 0.8;
 }
+
+/* Matches WIDTH in CityView.jsx */
+@keyframes city-drive {
+  from { transform: translateX(0); }
+  to { transform: translateX(700px); }
+}
+
+.city-mover {
+  animation: city-drive linear infinite;
+}
+
+.city-headlight {
+  fill: var(--text);
+  opacity: 0.9;
+}
+
+.city-window {
+  fill: var(--cyan);
+  opacity: 0.5;
+}
+
+.city-smog {
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.city-smog-stop {
+  stop-color: var(--caution);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-mover { animation: none; }
+}

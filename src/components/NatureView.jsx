@@ -14,6 +14,11 @@ const HERD_Y = 178
 const PRED_Y = 252
 const HERBIVORES_PER_DOT = 4
 
+const RAIN_TOP = 32
+const RAIN_FALL = 70
+const RAIN_SECONDS = 1.2
+const SWAY_SECONDS = 3.2
+
 const STATUS_COLOR = {
   success: 'var(--success)',
   caution: 'var(--caution)',
@@ -30,6 +35,13 @@ const herdDots = (herbivores) => Math.round(herbivores / HERBIVORES_PER_DOT)
 const treePath = (x, height) =>
   `M${x - PLANT_HALF} ${PLANT_BASE} L${x} ${PLANT_BASE - height} L${x + PLANT_HALF} ${PLANT_BASE} Z`
 
+// Spacing sequences, so adding an item never moves the others.
+const phaseA = (i) => (i * 0.7548776662466927) % 1
+const phaseB = (i) => (i * 0.5698402909980532) % 1
+
+// 2 drops at the driest, 24 at the wettest.
+const rainDrops = (rainfall) => Math.round(((rainfall - 40) / 120) * 22) + 2
+
 export default function NatureView({ values, result, baselineValues }) {
   const vegetation = metric(result, 'vegetation')
   const herbivores = metric(result, 'herbivores')
@@ -43,13 +55,17 @@ export default function NatureView({ values, result, baselineValues }) {
   const ghostPlanted = baseline ? plantedSlots(baselineValues.cleared) : 0
   const height = plantHeight(vegetation.value)
   const ghostHeight = plantHeight(baseVegetation)
+  const lostHeight = plantHeight(result.potential)
 
   const herdCount = herdDots(herbivores.value)
   const ghostHerdCount = baseline ? herdDots(baseHerbivores) : 0
   const predatorCount = values.predators
   const ghostPredatorCount = baseline ? baselineValues.predators : 0
+  const rainCount = rainDrops(values.rainfall)
 
   const label = `Nature view: ${vegetation.value} percent plant cover, ${herbivores.value} herbivores per square kilometre, ${values.predators} predators per 100 square kilometres, ${values.cleared} percent of land cleared. Ecosystem health is ${health.statusLabel.toLowerCase()}.${
+    result.overgrazed ? ' Herbivores are overgrazing the plants.' : ''
+  }${
     baseline
       ? ` Baseline had ${baseVegetation} percent plant cover and ${baseHerbivores} herbivores.`
       : ''
@@ -58,6 +74,24 @@ export default function NatureView({ values, result, baselineValues }) {
   return (
     <figure className="nature-view">
       <svg viewBox="0 0 800 300" role="img" aria-label={label}>
+        {Array.from({ length: rainCount }, (_, i) => {
+          const x = LEFT + phaseA(i) * WIDTH
+          return (
+            <line
+              key={`rain-${i}`}
+              className="nature-rain"
+              x1={x}
+              x2={x - 2}
+              y1={RAIN_TOP}
+              y2={RAIN_TOP + 9}
+              style={{
+                transform: `translateY(${phaseB(i) * RAIN_FALL}px)`,
+                animationDelay: `${-phaseB(i) * RAIN_SECONDS}s`,
+              }}
+            />
+          )
+        })}
+
         <text className="nature-label" x={LEFT} y="24">
           Plants · {vegetation.value}% cover
         </text>
@@ -78,12 +112,25 @@ export default function NatureView({ values, result, baselineValues }) {
           y2={PLANT_BASE + 2}
         />
 
+        {result.overgrazed &&
+          Array.from({ length: planted }, (_, i) => (
+            <path
+              key={`lost-${i}`}
+              className="nature-lost"
+              d={treePath(slotX(i), lostHeight)}
+            />
+          ))}
+
         {Array.from({ length: planted }, (_, i) => (
           <path
             key={`plant-${i}`}
             className="nature-plant"
             d={treePath(slotX(i), height)}
-            style={{ fill: STATUS_COLOR[vegetation.status] }}
+            style={{
+              fill: STATUS_COLOR[vegetation.status],
+              transformOrigin: `${slotX(i)}px ${PLANT_BASE}px`,
+              animationDelay: `${-phaseA(i) * SWAY_SECONDS}s`,
+            }}
           />
         ))}
 
@@ -133,6 +180,10 @@ export default function NatureView({ values, result, baselineValues }) {
             width="12"
             height="8"
             rx="2"
+            style={{
+              animationDuration: `${5 + phaseB(i) * 4}s`,
+              animationDelay: `${-phaseA(i) * 6}s`,
+            }}
           />
         ))}
 
@@ -165,13 +216,19 @@ export default function NatureView({ values, result, baselineValues }) {
             cx={spread(predatorCount, i)}
             cy={PRED_Y}
             r="7"
+            style={{
+              animationDuration: `${7 + phaseB(i) * 4}s`,
+              animationDelay: `${-phaseA(i) * 8}s`,
+            }}
           />
         ))}
       </svg>
 
       <figcaption className="nature-caption">
-        Top: plants, with stumps where land is cleared. Middle: herbivores, one
-        block is about {HERBIVORES_PER_DOT}. Bottom: predators.
+        Top: rain and plants, with stumps where land is cleared. Middle:
+        herbivores, one block is about {HERBIVORES_PER_DOT}. Bottom: predators.
+        {result.overgrazed &&
+          ' Dashed amber outlines show plant cover lost to grazing.'}
         {baseline && ' Dashed violet outlines show your baseline.'}
       </figcaption>
     </figure>

@@ -93,6 +93,7 @@ export function simulateNature(input) {
 
   return {
     overgrazed,
+    potential: Math.round(potential),
     metrics: [
       { id: 'vegetation', label: 'Plant cover', value: vegetationValue, unit: '%', ...vegetationStatus(vegetationValue) },
       { id: 'herbivores', label: 'Herbivores', value: herbivoreValue, unit: 'per km²', ...herbivoreStatus(herbivoreValue) },

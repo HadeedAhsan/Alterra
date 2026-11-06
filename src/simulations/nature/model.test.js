@@ -71,4 +71,11 @@ describe('simulateNature', () => {
     for (const m of result.metrics) expect(Number.isFinite(m.value)).toBe(true)
     expect(simulateNature(undefined).metrics).toHaveLength(3)
   })
+
+  it('reports the plant cover the land could support before grazing', () => {
+    expect(simulateNature(natureDefaults).potential).toBe(81)
+    const none = simulateNature({ ...natureDefaults, predators: 0 })
+    expect(none.potential).toBe(81)
+    expect(get(none, 'vegetation')).toBeLessThan(none.potential)
+  })
 })

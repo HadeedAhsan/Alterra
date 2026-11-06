@@ -26,6 +26,7 @@ Every result is an illustrative model, not a prediction. Each lab lists its assu
 - Reset to defaults
 - Dark only design with a cosmic look, responsive from phone to desktop
 - Accessibility: keyboard navigation, visible focus states, skip link, labelled sliders and visuals, touch friendly controls, and reduced motion support
+- Animated scenes: traffic and haze, rain and swaying plants, pulsing overbooking warnings. All motion switches off with the reduced motion setting
 
 ## Tech stack
 
