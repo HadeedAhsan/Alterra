@@ -1,0 +1,5 @@
+.emblem {
+  display: block;
+  flex: none;
+  filter: drop-shadow(0 0 8px rgba(56, 207, 232, 0.3));
+}

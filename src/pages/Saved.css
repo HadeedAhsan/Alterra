@@ -110,3 +110,9 @@
   flex-wrap: wrap;
   gap: var(--space-3);
 }
+
+.empty-paths {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}

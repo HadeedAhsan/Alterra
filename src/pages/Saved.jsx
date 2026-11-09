@@ -8,10 +8,10 @@ import {
   importExperiments,
 } from '../storage/experiments'
 import { parseImport, IMPORT_MAX_BYTES } from '../storage/importData'
-
 import { buildExport, downloadJson } from '../storage/exportData'
 import Card from '../components/Card'
 import Button from '../components/Button'
+import SavedPreview from '../components/SavedPreview'
 import './Saved.css'
 
 function describeImport(added, duplicates, skipped) {
@@ -110,6 +110,7 @@ export default function Saved() {
   }
 
   return (
+    
     <section className="saved">
       <div className="saved-header">
   <h1 ref={headingRef} tabIndex={-1}>Saved experiments</h1>
@@ -188,6 +189,7 @@ export default function Saved() {
                       {world ? world.name : 'Unknown world'} ·{' '}
                       {new Date(experiment.savedAt).toLocaleDateString()}
                     </p>
+                    <SavedPreview worldId={experiment.worldId} values={experiment.values} />
                   </div>
 
                   <div className="saved-actions">

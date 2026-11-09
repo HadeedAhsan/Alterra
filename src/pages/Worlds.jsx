@@ -1,6 +1,7 @@
 import { worlds } from '../data/worlds'
 import Card from '../components/Card'
 import Button from '../components/Button'
+import LabEmblem from '../components/LabEmblem'
 import './Worlds.css'
 
 export default function Worlds() {
@@ -13,10 +14,10 @@ export default function Worlds() {
       </p>
 
       <ul className="worlds-grid">
-        {worlds.map(({ id, name, icon: Icon, description, available }) => (
+        {worlds.map(({ id, name, description, available }) => (
           <li key={id}>
             <Card as="article" className="world-card">
-              <Icon size={32} aria-hidden="true" className="world-icon" />
+              <LabEmblem id={id} />
               <h2>{name}</h2>
               <p className="world-text">{description}</p>
               {available ? (
